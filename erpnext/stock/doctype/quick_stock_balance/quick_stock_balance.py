@@ -30,6 +30,9 @@ def get_stock_item_details(warehouse, date, item=None, barcode=None):
 
 @frappe.whitelist()
 def get_work_order_summary(item_code):
-    work_orders = frappe.get_all('Work Order', filters={'production_item': item_code},
-                                 fields=['name', 'status', 'qty_produced', 'production_item', 'serial_no'])
+    work_orders = frappe.get_all(
+        'Work Order', 
+        filters={'production_item': item_code},
+        fields=['name', 'status', 'qty', 'production_item', 'serial_no']
+    )
     return work_orders
