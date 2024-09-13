@@ -96,21 +96,22 @@ frappe.ui.form.on("Quick Stock Balance", {
     },
 
     get_work_order_summary: (frm) => {
-        if(frm.doc.item) {
+        if (frm.doc.item) {
             frappe.call({
                 method: "erpnext.stock.doctype.quick_stock_balance.quick_stock_balance.get_work_order_summary",
                 args: { item_code: frm.doc.item },
                 callback: (r) => {
                     if (r.message) {
                         let work_order_table = `<table class="table table-bordered">
-                                                <thead><tr><th>ID</th><th>Status</th><th>Produce Qty</th><th>Stock Item</th><th>Stock Item Serial</th></tr></thead><tbody>`;
+                                                    <thead>
+                                                        <tr><th>ID</th><th>Status</th><th>Qty To Manufacture</th><th>Production Item</th></tr>
+                                                    </thead><tbody>`;
                         r.message.forEach(order => {
                             work_order_table += `<tr>
                                                     <td>${order.name}</td>
                                                     <td>${order.status}</td>
-                                                    <td>${order.qty_produced}</td>
+                                                    <td>${order.qty}</td>
                                                     <td>${order.production_item}</td>
-                                                    <td>${order.serial_no}</td>
                                                  </tr>`;
                         });
                         work_order_table += '</tbody></table>';
