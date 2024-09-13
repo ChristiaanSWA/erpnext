@@ -33,6 +33,6 @@ def get_work_order_summary(item_code):
     work_orders = frappe.get_all(
         'Work Order', 
         filters={'production_item': item_code},
-        fields=['name', 'status', 'qty', 'production_item', 'serial_no']
+        fields=['name', 'status', 'qty', 'production_item']  # Removed 'serial_no'
     )
     return work_orders
